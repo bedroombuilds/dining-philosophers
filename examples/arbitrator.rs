@@ -54,7 +54,7 @@ impl Table {
     /// to fork for a right hand (by convention the second hand that asks for a fork)
     fn take_fork(&self, which: Fork) -> bool {
         let mut forks = self.waiter.lock().unwrap();
-        let forks_avalaible = forks.iter().filter(|x| !*x).count();
+        let forks_available = forks.iter().filter(|x| !*x).count();
         let mut reserve_fork = |fork: usize| {
             if !forks[fork] {
                 forks[fork] = true;
@@ -66,7 +66,7 @@ impl Table {
         match which {
             Fork::Right(fork) => reserve_fork(fork),
             Fork::Left(fork) => {
-                if forks_avalaible > 1 {
+                if forks_available > 1 {
                     reserve_fork(fork)
                 } else {
                     false
